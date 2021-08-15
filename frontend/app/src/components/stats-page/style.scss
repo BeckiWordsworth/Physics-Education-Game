@@ -1,0 +1,19 @@
+.stats-page {
+  padding-top: 20px;
+
+  .user-container {
+      margin: 0px auto;
+      width: 800px;
+      height: 310px;
+      padding: 10px 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(0,0,0,.04);
+
+      .user-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+  }
+}

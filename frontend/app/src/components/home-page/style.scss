@@ -1,0 +1,78 @@
+
+.homepage {
+  .hero {
+    background-color: #1866a6;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .hero-icon {
+      width: 200px;
+    }
+
+    .hero-content {
+      color: white;
+      font-size: 18pt;
+      font-weight: bold;
+      text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+      text-align: center;
+
+      a {
+        padding: 10px 50px;
+        background-color: #22aa33;
+        border-radius: 30px;
+        color: white;
+        text-decoration: none;
+        font-size: 14pt;
+      }
+
+      a:hover {
+        background-color: #229922;
+      }
+    }
+  }
+
+  section {
+    background-color: #ddd;
+    padding: 20px;
+
+    .section-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  section:nth-child(odd) {
+    background-color: #f3f3f3;
+  }
+
+  footer {
+    background-color: #1866a6;
+    min-height: 100px;
+    padding: 40px 20px;
+
+    .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
+      color: #ddd;
+    }
+  }
+}
+
+.science-icon {
+
+  img {
+    margin: 10px;
+  }
+}
+
+
+.image-icon {
+  margin: 0 auto;
+
+  img {
+    height: 50px;
+  }
+
+}

@@ -1,0 +1,27 @@
+.question-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 440px;
+
+  .question {
+    width: 80%;
+    height: 300px;
+    background-color: #f3f3f3;
+    padding: 10px;
+    box-shadow: 0 3px 5px rgba(0,0,0,.05);
+    border: solid 3px #e1e1e1;
+  }
+
+  .question-text {
+    font-size: 19pt;
+    font-weight: bold;
+  }
+
+  .question-id {
+    margin-top: 10px;
+    color: #ccc;
+    font-size: 10pt;
+  }
+}

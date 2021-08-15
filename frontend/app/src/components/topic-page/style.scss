@@ -1,0 +1,69 @@
+.activity-container {
+  button {
+    padding: 10px;
+    background: none;
+    border: solid 2px #bbb;
+    border-radius: 20px;
+    color: #666;
+    font-size: 10pt;
+    font-family: 'Montserrat', sans-serif;
+    transition: 0.2s;
+  }
+
+  button:hover {
+    background: #ccc;
+    color: #333;
+  }
+
+  .activity-progress {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .extras {
+    margin-top: 20px;
+  }
+
+  .result {
+    padding: 40px;
+    padding-left: 10%;
+    padding-right: 10%;
+    color: black;
+    font-size: 16pt;
+
+    h2 {
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  .face {
+    height: 50px;
+    float: left;
+    padding-right: 10px;
+    padding-bottom: 10px;
+  }
+
+  .correct-answer {
+    background-color: #81d988
+  }
+
+  .wrong-answer {
+    background-color: #e76345
+  }
+
+  .next-question {
+    float: right;
+    padding-top: 2px;
+
+    button {
+      background-color: white;
+      color: #111;
+      border-color: #555;
+    }
+
+    button:hover {
+      background-color: #ddd;
+    }
+  }
+}

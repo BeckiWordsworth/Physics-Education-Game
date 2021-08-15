@@ -1,0 +1,26 @@
+.progressBar {
+  position: relative;
+  height: 20px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 10px;
+  border-left: solid 2px #ccc;
+  border-right: solid 2px #ccc;
+
+  .background {
+    position: absolute;
+    width: 100%;
+    top: 8px;
+    height: 2px;
+    background: #ccc;
+  }
+
+  .filler {
+    position: absolute;
+    top: 2px;
+    background-color: #37ba00;
+    height: 16px;
+    border-radius: 10px;
+  }
+
+}
