@@ -6,6 +6,9 @@ const bcrypt = require("bcrypt-nodejs");
 const uuid = require("uuid-v4");
 const moment = require("moment");
 
+// Load config from .env file even using nodemon
+require("dotenv").config();
+
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -13,11 +16,16 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost/physics-game-api");
+export const LISTEN_PORT = process.env.LISTEN_PORT || 8080;
+export const MONGO_DB_URL = process.env.MONGO_DB_URI_LIVE || "mongodb://localhost/physics-game-api";
 
+//mongoose.connect("mongodb://localhost/physics-game-api");
+mongoose.connect(MONGO_DB_URL, {
+  useNewUrlParser: true,
+});
 mongoose.Promise = Promise;
 
-mongoose.connection.on("error", err => console.error("Connection error:", err));
+mongoose.connection.on("error", (err) => console.error("Connection error:", err));
 mongoose.connection.once("open", () => console.log("Connected to mongodb"));
 
 //Check Authentication
@@ -29,14 +37,14 @@ function checkAuth(req, res, validFunc) {
   }
 
   User.findOne({ accessToken: accessToken })
-    .then(user => {
+    .then((user) => {
       if (user) {
         validFunc(user);
       } else {
         res.send("No user found with that token");
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.json(err);
     });
 }
@@ -49,22 +57,22 @@ const User = mongoose.model("User", {
   username: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   password: {
     type: String,
     required: true,
-    minlength: 8
+    minlength: 8,
   },
   accessToken: {
     type: String,
-    default: () => uuid()
-  }
+    default: () => uuid(),
+  },
 });
 
 // endpoint to get info from db (if user is authenticaed)
@@ -76,12 +84,12 @@ const User = mongoose.model("User", {
 const Topic = mongoose.model("Topic", {
   title: {
     type: String,
-    required: true
+    required: true,
   },
   level: {
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 });
 
 Topic.createCollection();
@@ -91,20 +99,20 @@ Topic.createCollection();
 const Result = mongoose.model("Result", {
   user_id: {
     type: String,
-    required: true
+    required: true,
   },
   datetime: {
     type: Date,
-    required: true
+    required: true,
   },
   topic_id: {
     type: String,
-    required: true
+    required: true,
   },
   score: {
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 });
 
 Result.createCollection();
@@ -114,24 +122,24 @@ Result.createCollection();
 const Question = mongoose.model("Question", {
   topic_id: {
     type: String,
-    required: true
+    required: true,
   },
   difficulty: {
     type: Number,
-    required: true
+    required: true,
   },
   text: {
     type: String,
-    required: true
+    required: true,
   },
   answers: {
     type: Array,
-    required: true
+    required: true,
   },
   correct_answer: {
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 });
 
 Question.createCollection();
@@ -143,7 +151,7 @@ app.post("/users", (req, res) => {
   if (!req.body.username || !req.body.email || !req.body.password) {
     res.status(400).json({
       created: false,
-      error: "You must provide a username, email and password."
+      error: "You must provide a username, email and password.",
     });
     return;
   }
@@ -151,14 +159,14 @@ app.post("/users", (req, res) => {
   const newUser = new User({
     username: req.body.username,
     email: req.body.email,
-    password: bcrypt.hashSync(req.body.password)
+    password: bcrypt.hashSync(req.body.password),
   });
   newUser
     .save()
     .then(() => {
       res.status(201).json({ created: true });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(400).json({ created: false, error: err });
     });
 });
@@ -166,18 +174,18 @@ app.post("/users", (req, res) => {
 // POST new session (i.e. log in) to user db
 app.post("/sessions", (req, res) => {
   User.findOne({ username: req.body.username })
-    .then(user => {
+    .then((user) => {
       if (user && bcrypt.compareSync(req.body.password, user.password)) {
         res.json({
           id: user.id,
           username: user.username,
-          accessToken: user.accessToken
+          accessToken: user.accessToken,
         });
       } else {
         res.send("Username or password not found");
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.json(err);
     });
 });
@@ -185,12 +193,12 @@ app.post("/sessions", (req, res) => {
 //POST results
 
 app.post("/results", (req, res) => {
-  checkAuth(req, res, user => {
+  checkAuth(req, res, (user) => {
     const result = new Result({
       user_id: user._id,
       datetime: new Date(),
       topic_id: req.body.topic_id,
-      score: req.body.score
+      score: req.body.score,
     });
 
     result
@@ -198,7 +206,7 @@ app.post("/results", (req, res) => {
       .then(() => {
         res.status(201).send(JSON.stringify({ success: true }));
       })
-      .catch(err => {
+      .catch((err) => {
         res.status(400).send(err);
       });
   });
@@ -207,7 +215,7 @@ app.post("/results", (req, res) => {
 //GET topics
 
 app.get("/topics/", (req, res) => {
-  Topic.find().then(topics => {
+  Topic.find().then((topics) => {
     console.log("topics: ", topics);
     res.json(topics);
   });
@@ -216,7 +224,7 @@ app.get("/topics/", (req, res) => {
 //GET questions
 
 app.get("/questions/", (req, res) => {
-  Question.find().then(questions => {
+  Question.find().then((questions) => {
     console.log("questions: ", questions);
     res.json(questions);
   });
@@ -225,8 +233,8 @@ app.get("/questions/", (req, res) => {
 //GET Results
 
 app.get("/results/:id", (req, res) => {
-  checkAuth(req, res, user => {
-    Result.find().then(results => {
+  checkAuth(req, res, (user) => {
+    Result.find().then((results) => {
       console.log("Results ", results);
       res.json(results);
     });
@@ -241,8 +249,8 @@ app.get("/resultsTime/:id", (req, res) => {
 
   Result.find({
     user_id: user,
-    datetime: { $gte: startDate }
-  }).then(result => {
+    datetime: { $gte: startDate },
+  }).then((result) => {
     res.json(result);
   });
 });
@@ -257,10 +265,10 @@ app.get("/scores/:id", (req, res) => {
     {
       $group: {
         _id: "$user_id",
-        total: { $sum: "$score" }
-      }
-    }
-  ]).then(result => {
+        total: { $sum: "$score" },
+      },
+    },
+  ]).then((result) => {
     res.json(result);
   });
 });
@@ -284,7 +292,7 @@ app.get("/topics/:id", (req, res) => {
     .limit(20);
   console.log("Topic ID: " + topic_id);
 
-  dbQuery.then(questions => {
+  dbQuery.then((questions) => {
     console.log("questions: ", questions);
     res.send(questions);
   });
@@ -298,9 +306,9 @@ app.post("/question", (req, res) => {
     .then(() => {
       res.status(201).send("question added");
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(400).send(err);
     });
 });
 
-app.listen(8080, () => console.log("Physics Game API listening on port 8080!"));
+app.listen(LISTEN_PORT, () => console.log(`Physics Game API listening on port ${LISTEN_PORT}!`));
