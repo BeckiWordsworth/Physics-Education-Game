@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import PageHeader from "./components/page-header";
+import HomePage from "./components/home-page";
+
 import "./App.css";
-// import HomePage from "./components/home-page";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 // import DashboardPage from "./components/dashboard-page";
 // import UserPage from "./components/user-page";
 // import TopicPage from "./components/topic-page";
@@ -78,9 +81,16 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <PageHeader />
-      </div>
+      <Router>
+        <div>
+          <PageHeader />
+
+          <Routes>
+            <Route path="/" element={HomePage} />
+          </Routes>
+        </div>
+      </Router>
+
       // <Router>
       //   <div className="app">
       //     <Header />
