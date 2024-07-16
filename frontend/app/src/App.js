@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PageHeader from "./components/page-header";
-import Home from "./components/home";
+import { HomePage } from "./components/home-page/index.js";
 
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -85,9 +85,11 @@ class App extends Component {
         <div>
           <PageHeader />
 
-          <Routes>
-            <Route path="/" element={<Home />} exact />
-          </Routes>
+          <div style={{ paddingTop: "70px" }}>
+            <Routes>
+              <Route path="/" element={<HomePage />} exact />
+            </Routes>
+          </div>
         </div>
       </Router>
 
