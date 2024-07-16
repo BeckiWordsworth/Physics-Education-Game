@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PageHeader from "./components/page-header";
-import HomePage from "./components/home-page";
+import Home from "./components/home";
 
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -86,7 +86,7 @@ class App extends Component {
           <PageHeader />
 
           <Routes>
-            <Route path="/" element={HomePage} />
+            <Route path="/" element={<Home />} exact />
           </Routes>
         </div>
       </Router>
