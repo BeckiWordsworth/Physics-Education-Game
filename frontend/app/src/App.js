@@ -6,7 +6,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // import DashboardPage from "./components/dashboard-page";
-// import UserPage from "./components/user-page";
+import UserPage from "./components/user-page";
 // import TopicPage from "./components/topic-page";
 // import Stats from "./components/stats-page";
 // import PostQuizPage from "./components/post-quiz-page";
@@ -88,6 +88,7 @@ class App extends Component {
           <div style={{ paddingTop: "70px" }}>
             <Routes>
               <Route path="/" element={<HomePage />} exact />
+              <Route path="/user" exact component={<UserPage />} />
             </Routes>
           </div>
         </div>
