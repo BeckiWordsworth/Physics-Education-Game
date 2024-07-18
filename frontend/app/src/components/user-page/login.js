@@ -1,25 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DuoPhysicsClient from "../../model/duophysics-client.js";
 import styled from "styled-components";
 
-class LogInForm extends React.Component {
-  state = {
-    username: "",
-    password: "",
-    isLoggedIn: false,
-  };
+const LogInForm = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  handleFormUpdate = (event) => {
+  const handleFormUpdate = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
   };
 
-  submitForm = (event) => {
+  const submitForm = (event) => {
     event.preventDefault();
     const userDetails = {
-      username: this.state.username,
-      password: this.state.password,
+      username: username,
+      password: password,
     };
     fetch("http://localhost:8080/sessions", {
       method: "POST",
@@ -33,37 +31,41 @@ class LogInForm extends React.Component {
         DuoPhysicsClient.onLogin(result.id, result.username, result.accessToken);
         console.log("Success!");
 
-        this.setState(
-          {
-            isLoggedIn: true,
-          },
-          () => {
-            this.props.onLogin(this.state.isLoggedIn);
-          }
-        );
+        setIsLoggedIn(true);
+
+        // () => {
+        //   this.props.onLogin(isLoggedIn);
+        // }
+
+        // this.setState(
+        //   {
+        //     isLoggedIn: true,
+        //   },
+        //   () => {
+        //     this.props.onLogin(isLoggedIn);
+        //   }
+        // );
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  render() {
-    return (
-      <div>
-        <h4>LOG IN</h4>
-        <U.LoginForm onSubmit={this.submitForm}>
-          <label htmlFor="username">Username: </label>
-          <input name="username" type="text" onChange={this.handleFormUpdate} />
-          <br />
-          <label htmlFor="password">Password: </label>
-          <input name="password" type="password" onChange={this.handleFormUpdate} />
-          <br />
-          <button type="submit">Submit</button>
-        </U.LoginForm>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <h4>LOG IN</h4>
+      <U.LoginForm onSubmit={submitForm}>
+        <label htmlFor="username">Username: </label>
+        <input name="username" type="text" onChange={handleFormUpdate} />
+        <br />
+        <label htmlFor="password">Password: </label>
+        <input name="password" type="password" onChange={handleFormUpdate} />
+        <br />
+        <button type="submit">Submit</button>
+      </U.LoginForm>
+    </div>
+  );
+};
 
 export default LogInForm;
 
