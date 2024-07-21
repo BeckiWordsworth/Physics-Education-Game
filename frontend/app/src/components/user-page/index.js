@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SignUpForm from "./signup";
 import LogInForm from "./login";
@@ -7,53 +7,49 @@ import styled from "styled-components";
 // import "./style.scss";
 import DuoPhysicsClient from "../../model/duophysics-client.js";
 
-class UserPage extends React.Component {
-  state = {
-    isLoggedIn: false,
-  };
+const UserPage = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  updateLoginStatus = (status) => {
+  let updateLoginStatus = (status) => {
     this.setState({
       isLoggedIn: status,
     });
   };
 
-  logout = () => {
+  let logout = () => {
     DuoPhysicsClient.logout();
     this.setState({
       isLoggedIn: false,
     });
   };
 
-  render() {
-    if (DuoPhysicsClient.isLoggedIn()) {
-      return (
-        <U.PageContentLoginPage>
-          <h1>You are logged in!</h1>
-          <button onClick={this.logout}>Logout</button>
-        </U.PageContentLoginPage>
-      );
-    } else {
-      return (
-        <U.PageContentLoginPage>
-          <U.BackButtonContainer>
-            <Link to="/">
-              <U.NavigationButtonTopSmall>&larr; Back to level page</U.NavigationButtonTopSmall>
-            </Link>
-          </U.BackButtonContainer>
-          <U.FormsContainer>
-            <U.FormBox>
-              <LogInForm onLogin={this.updateLoginStatus} />
-            </U.FormBox>
-            <U.FormBox>
-              <SignUpForm onLogin={this.updateLoginStatus} />
-            </U.FormBox>
-          </U.FormsContainer>
-        </U.PageContentLoginPage>
-      );
-    }
+  if (DuoPhysicsClient.isLoggedIn()) {
+    return (
+      <U.PageContentLoginPage>
+        <h1>You are logged in!</h1>
+        <button onClick={logout}>Logout</button>
+      </U.PageContentLoginPage>
+    );
+  } else {
+    return (
+      <U.PageContentLoginPage>
+        <U.BackButtonContainer>
+          <Link to="/">
+            <U.NavigationButtonTopSmall>&larr; Back to level page</U.NavigationButtonTopSmall>
+          </Link>
+        </U.BackButtonContainer>
+        <U.FormsContainer>
+          <U.FormBox>
+            <LogInForm onLogin={updateLoginStatus} />
+          </U.FormBox>
+          <U.FormBox>
+            <SignUpForm onLogin={updateLoginStatus} />
+          </U.FormBox>
+        </U.FormsContainer>
+      </U.PageContentLoginPage>
+    );
   }
-}
+};
 
 export default UserPage;
 
@@ -92,7 +88,7 @@ const U = {
     }
   `,
 
-  loginForm: styled.div`
+  LoginForm: styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;

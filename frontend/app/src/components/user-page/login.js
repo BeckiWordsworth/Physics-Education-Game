@@ -70,7 +70,7 @@ const LogInForm = () => {
 export default LogInForm;
 
 const U = {
-  LoginForm: styled.div`
+  LoginForm: styled.form`
     display: flex;
     flex-direction: column;
     width: 100%;

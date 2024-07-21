@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
 const SignUpForm = () => {
   const [username, setUsername] = useState("");
@@ -47,7 +48,7 @@ const SignUpForm = () => {
   return (
     <div>
       <h4>CREATE A NEW ACCOUNT</h4>
-      <form className="signupForm" onSubmit={submitForm}>
+      <U.SignUpForm onSubmit={submitForm}>
         <label htmlFor="username">Username: </label>
         <input name="username" type="text" onChange={handleFormUpdate} />
         <br />
@@ -58,10 +59,43 @@ const SignUpForm = () => {
         <input name="password" type="password" onChange={handleFormUpdate} />
         <br />
         <button type="submit">Submit</button>
-      </form>
+      </U.SignUpForm>
       {this.state.newUserAdded ? <p>New user added. Welcome! Please check your email.</p> : <p />}
     </div>
   );
 };
 
 export default SignUpForm;
+
+const U = {
+  SignUpForm: styled.form`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 20px;
+    input[type="text"],
+    [type="password"] {
+      width: 100%;
+      padding: 5px;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 15px;
+    }
+    button {
+      background-color: $primaryButtonColor;
+      border-radius: 10px;
+      padding: 5px 15px;
+      border: none;
+      font-size: 15px;
+      margin-right: 10px;
+      margin-top: 10px;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #a07a5e;
+      color: #fff;
+    }
+  `,
+};
