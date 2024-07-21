@@ -11,16 +11,12 @@ const UserPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   let updateLoginStatus = (status) => {
-    this.setState({
-      isLoggedIn: status,
-    });
+    setIsLoggedIn(status);
   };
 
   let logout = () => {
     DuoPhysicsClient.logout();
-    this.setState({
-      isLoggedIn: false,
-    });
+    setIsLoggedIn(false);
   };
 
   if (DuoPhysicsClient.isLoggedIn()) {

@@ -1,132 +1,164 @@
-import React from 'react'
-import "./style.scss"
-import TopicList from '../topiclist'
-import LineChart from '../line-graph'
-import DuoPhysicsClient from "../../model/duophysics-client.js"
-import moment from 'moment';
+import React, { useEffect, useState } from "react";
+import TopicList from "../topiclist";
+import LineChart from "../line-graph";
+import DuoPhysicsClient from "../../model/duophysics-client.js";
+import moment from "moment";
+import styled from "styled-components";
 
-class DashboardPage extends React.Component {
+const DashboardPage = () => {
+  const [topics, setTopics] = useState([]);
+  const [user, setUser] = useState(null);
+  const [recentActivityGraphData, setRecentActivityGraphData] = useState(null);
 
-  state = {
-    topics: [],
-    user: null,
-    recentActivityGraphData: null
-  }
+  useEffect(() => {
+    fetchData();
+    fetchTimeData();
+  }, []);
 
-  componentDidMount() {
-    this.fetchData()
-    this.fetchTimeData()
-  }
-
-  fetchData = () => {
+  let fetchData = () => {
     fetch(`${DuoPhysicsClient.ServerUrl}/topics`)
       .then((response) => {
-        return response.json()
+        return response.json();
       })
       .then((json) => {
-        console.log(json)
+        console.log(json);
 
-        this.setState({
-          topics: json
-        })
+        topics(json);
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
 
-  fetchTimeData = () => {
-    let UserId = DuoPhysicsClient.getUserId()
+  let fetchTimeData = () => {
+    let UserId = DuoPhysicsClient.getUserId();
 
     fetch(`${DuoPhysicsClient.ServerUrl}/resultsTime/${UserId}`)
-    .then((response) => {
-      return response.json()
-    })
-    .then((json) => {
-      console.log(json)
-      this.setState({
-        timeResults: json
-      }, this.timeResults)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-  }
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        console.log(json);
+        this.setState(
+          {
+            timeResults: json,
+          },
+          this.timeResults
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-  timeResults = () => {
-    let graphData = [{
-      "id": "recent_activity",
-      "color": "hsl(281, 70%, 50%)",
-      "data": [
+  let timeResults = () => {
+    let graphData = [
+      {
+        id: "recent_activity",
+        color: "hsl(281, 70%, 50%)",
+        data: [],
+      },
+    ];
 
-      ]
-    }]
-
-    for(var daysAgo = 0; daysAgo < 7; daysAgo++)
-    {
-      let day = moment().subtract(daysAgo, 'days').format('DD-MM-YYYY')
+    for (var daysAgo = 0; daysAgo < 7; daysAgo++) {
+      let day = moment().subtract(daysAgo, "days").format("DD-MM-YYYY");
       let totalEntries = 0;
 
       this.state.timeResults.forEach((entry) => {
-        let entryDay = moment(entry.datetime).format('DD-MM-YYYY')
+        let entryDay = moment(entry.datetime).format("DD-MM-YYYY");
 
         if (entryDay === day) {
           totalEntries += 1;
         }
-      })
+      });
 
       let newEntry = {
-        "x": daysAgo.toString(),
-        "y": totalEntries
-      }
+        x: daysAgo.toString(),
+        y: totalEntries,
+      };
 
       if (daysAgo == 0) {
-        newEntry["x"] = "Today"
+        newEntry["x"] = "Today";
       }
 
-      graphData[0].data.push(newEntry)
+      graphData[0].data.push(newEntry);
     }
 
-    this.setState({
-      recentActivityGraphData: graphData
-    })
-  }
+    setRecentActivityGraphData(graphData);
+  };
 
-  render() {
-    return (
-      <div className="dashboard-container">
-        <div className="dashboard-main">
-          <div className="topic-list">
-            <h2>Physics Topics</h2>
-            {this.state.topics.map((topic) => {
-              return <TopicList id={topic._id}
-                title={topic.title}
-                icon={topic.icon}
-                />
-            })}
-          </div>
+  return (
+    <D.DashboardContainer>
+      <D.DashboardMain>
+        <div className="topic-list">
+          <h2>Physics Topics</h2>
+          {topics.map((topic) => {
+            return <TopicList id={topic._id} title={topic.title} icon={topic.icon} />;
+          })}
         </div>
-        <div className="dashboard-sidebar">
+      </D.DashboardMain>
+      <D.DashboardSidebar>
+        <div>
+          <a href="/stats">
+            <img src="/crown.png" alt="Logo" />
+          </a>
+          <h2>You are on {this.props.crownData} crowns</h2>
+        </div>
+
+        <D.DashboardSidebarGraph>
           <div>
-            <a href="/stats"><img src="/crown.png" alt="Logo" /></a>
-            <h2>You are on {this.props.crownData} crowns</h2>
-          </div>
-
-          <div className="dashboard-sidebar-graph">
-            <div>
             <h2>Last 7 Days Activity</h2>
-              <a href="/stats"></a>
+            <a href="/stats"></a>
 
-              <div className="activity-line-graph">
-                <LineChart graphData={this.state.recentActivityGraphData} />
-              </div>
+            <div className="activity-line-graph">
+              <LineChart graphData={recentActivityGraphData} />
             </div>
           </div>
-        </div>
-      </div>
-    )
-  }
+        </D.DashboardSidebarGraph>
+      </D.DashboardSidebar>
+    </D.DashboardContainer>
+  );
+};
 
-}
+export default DashboardPage;
 
-export default DashboardPage
+const D = {
+  DashboardContainer: styled.div`
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-column-gap: 20px;
+
+    h2 {
+      margin: 0px;
+      font-weight: normal;
+    }
+  `,
+
+  DashboardSidebar: styled.div`
+    display: block;
+    text-align: center;
+
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+  `,
+
+  DashboardMain: styled.div`
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.04);
+    margin-bottom: 20px;
+  `,
+
+  DashboardSidebarGraph: styled.div`
+    display: block;
+    text-align: center;
+
+    .activity-line-graph {
+      height: 400px;
+    }
+  `,
+};
