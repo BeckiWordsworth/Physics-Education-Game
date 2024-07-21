@@ -4,8 +4,9 @@ import Question from "../question";
 import Answer from "../answer";
 import ProgressBar from "../progressBar";
 import DuoPhysicsClient from "../../model/duophysics-client.js";
+import styled from "styled-components";
 
-let shuffleArray = array => {
+let shuffleArray = (array) => {
   let currentIndex = array.length,
     temporaryValue,
     randomIndex;
@@ -32,7 +33,7 @@ class TopicPage extends React.Component {
     progress: 0,
     questionsAnswered: 0,
     showQuestionResult: false,
-    lastQuestionCorrect: false
+    lastQuestionCorrect: false,
   };
 
   componentDidMount() {
@@ -41,7 +42,7 @@ class TopicPage extends React.Component {
 
   updateProgressBar = () => {
     this.setState({
-      progress: Math.round((this.state.totalScore / 10) * 100)
+      progress: Math.round((this.state.totalScore / 10) * 100),
     });
   };
 
@@ -61,17 +62,17 @@ class TopicPage extends React.Component {
     let topicId = this.getTopicId();
 
     fetch(`${DuoPhysicsClient.ServerUrl}/topics/${topicId}`)
-      .then(response => {
+      .then((response) => {
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         data = shuffleArray(data);
 
         this.setState({
-          questionData: data
+          questionData: data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -83,10 +84,7 @@ class TopicPage extends React.Component {
     if (this.state.totalScore >= 10) {
       quizEnded = true;
       didWin = true;
-    } else if (
-      this.state.questionsAnswered === 20 &&
-      this.state.totalScore < 10
-    ) {
+    } else if (this.state.questionsAnswered === 20 && this.state.totalScore < 10) {
       quizEnded = true;
       didWin = false;
     }
@@ -101,25 +99,22 @@ class TopicPage extends React.Component {
 
       let payload = {
         topic_id: this.getTopicId(),
-        score: this.state.totalScore
+        score: this.state.totalScore,
       };
 
       let accessToken = DuoPhysicsClient.getUserToken();
 
-      fetch(
-        `${DuoPhysicsClient.ServerUrl}/results?accessToken=${accessToken}`,
-        {
-          method: "POST",
-          body: JSON.stringify(payload),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }
-      )
-        .then(response => {
+      fetch(`${DuoPhysicsClient.ServerUrl}/results?accessToken=${accessToken}`, {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
           return response.json();
         })
-        .then(data => {
+        .then((data) => {
           console.log(data);
 
           if (didWin) {
@@ -128,7 +123,7 @@ class TopicPage extends React.Component {
             this.props.history.push("/EndQuizPage");
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
 
           if (didWin) {
@@ -139,7 +134,7 @@ class TopicPage extends React.Component {
         });
 
       this.setState({
-        quizEnded: true
+        quizEnded: true,
       });
     }
   };
@@ -152,7 +147,7 @@ class TopicPage extends React.Component {
       {
         questionToShow: nextQuestionToShow,
         questionsAnswered: this.state.questionsAnswered + 1,
-        showQuestionResult: false
+        showQuestionResult: false,
       },
       this.checkIfQuizEnded
     );
@@ -162,7 +157,7 @@ class TopicPage extends React.Component {
     this.advanceQuestion();
   };
 
-  onAnswerSelected = selectedAnswerIndex => {
+  onAnswerSelected = (selectedAnswerIndex) => {
     //takes the index of the current question
     let currentQuestion = this.state.questionData[this.state.questionToShow];
     // passed up as props from child
@@ -171,25 +166,23 @@ class TopicPage extends React.Component {
       this.setState({
         totalScore: this.state.totalScore + 1,
         showQuestionResult: true,
-        lastQuestionCorrect: true
+        lastQuestionCorrect: true,
       });
     } else {
       console.log("Wrong Answer!");
       this.setState({
         totalScore: this.state.totalScore,
         showQuestionResult: true,
-        lastQuestionCorrect: false
+        lastQuestionCorrect: false,
       });
     }
   };
 
   updateTotalScore = () => {
     let prevScore = this.state.totalScore;
-    let newScore = this.state.question.answers.find(
-      answer => answer.id === this.state.selectedAnswer
-    ).score;
+    let newScore = this.state.question.answers.find((answer) => answer.id === this.state.selectedAnswer).score;
     this.setState({
-      totalScore: prevScore + newScore
+      totalScore: prevScore + newScore,
     });
   };
 
@@ -202,10 +195,7 @@ class TopicPage extends React.Component {
         </div>
       );
     }
-    if (
-      this.state.questionData === undefined ||
-      this.state.questionData.length === 0
-    ) {
+    if (this.state.questionData === undefined || this.state.questionData.length === 0) {
       return (
         <div>
           <p>No questions found</p>
@@ -229,12 +219,8 @@ class TopicPage extends React.Component {
     }
 
     if (this.state.showQuestionResult) {
-      let className = this.state.lastQuestionCorrect
-        ? "correct-answer"
-        : "wrong-answer";
-      let text = this.state.lastQuestionCorrect
-        ? "Correct Answer!"
-        : "Wrong Answer";
+      let className = this.state.lastQuestionCorrect ? "correct-answer" : "wrong-answer";
+      let text = this.state.lastQuestionCorrect ? "Correct Answer!" : "Wrong Answer";
       let image = this.state.lastQuestionCorrect ? "/smile.png" : "/sad.png";
 
       content = (

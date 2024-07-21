@@ -110,9 +110,9 @@ const DashboardPage = () => {
             <h2>Last 7 Days Activity</h2>
             <a href="/stats"></a>
 
-            <div className="activity-line-graph">
+            <D.ActivityLineGraph>
               <LineChart graphData={recentActivityGraphData} />
-            </div>
+            </D.ActivityLineGraph>
           </div>
         </D.DashboardSidebarGraph>
       </D.DashboardSidebar>
@@ -156,9 +156,9 @@ const D = {
   DashboardSidebarGraph: styled.div`
     display: block;
     text-align: center;
+  `,
 
-    .activity-line-graph {
-      height: 400px;
-    }
+  ActivityLineGraph: styled.div`
+    height: 400px;
   `,
 };
