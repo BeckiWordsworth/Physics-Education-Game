@@ -89,7 +89,8 @@ const DashboardPage = () => {
 
   return (
     <D.DashboardContainer>
-      <D.DashboardMain>
+      <p>hello world</p>
+      {/* <D.DashboardMain>
         <div className="topic-list">
           <h2>Physics Topics</h2>
           {topics.map((topic) => {
@@ -115,7 +116,7 @@ const DashboardPage = () => {
             </D.ActivityLineGraph>
           </div>
         </D.DashboardSidebarGraph>
-      </D.DashboardSidebar>
+      </D.DashboardSidebar> */}
     </D.DashboardContainer>
   );
 };

@@ -85,11 +85,12 @@ const App = () => {
         <div style={{ paddingTop: "70px" }}>
           <Routes>
             <Route path="/" element={<HomePage />} exact />
-            <Route path="/user" exact component={<UserPage />} />
+            <Route path="/user" exact element={<UserPage />} />
             <Route
               path="/dashboard"
               exact
-              render={(props) => <DashboardPage {...props} totalScore={totalScore} crownData={crownData} />}
+              element={<DashboardPage />}
+              // render={(props) => <DashboardPage {...props} totalScore={totalScore} crownData={crownData} />}
             />
           </Routes>
         </div>
