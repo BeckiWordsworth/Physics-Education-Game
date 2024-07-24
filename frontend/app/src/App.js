@@ -89,7 +89,7 @@ const App = () => {
             <Route
               path="/dashboard"
               exact
-              element={<DashboardPage />}
+              element={<DashboardPage totalScore={totalScore} crownData={crownData} />}
               // render={(props) => <DashboardPage {...props} totalScore={totalScore} crownData={crownData} />}
             />
           </Routes>

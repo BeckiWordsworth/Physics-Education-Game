@@ -5,7 +5,7 @@ import DuoPhysicsClient from "../../model/duophysics-client.js";
 import moment from "moment";
 import styled from "styled-components";
 
-const DashboardPage = () => {
+const DashboardPage = ({ totalScore, crownData }) => {
   const [topics, setTopics] = useState([]);
   const [user, setUser] = useState(null);
   const [recentActivityGraphData, setRecentActivityGraphData] = useState(null);
@@ -90,7 +90,7 @@ const DashboardPage = () => {
   return (
     <D.DashboardContainer>
       <p>hello world</p>
-      {/* <D.DashboardMain>
+      <D.DashboardMain>
         <div className="topic-list">
           <h2>Physics Topics</h2>
           {topics.map((topic) => {
@@ -116,7 +116,7 @@ const DashboardPage = () => {
             </D.ActivityLineGraph>
           </div>
         </D.DashboardSidebarGraph>
-      </D.DashboardSidebar> */}
+      </D.DashboardSidebar>
     </D.DashboardContainer>
   );
 };
