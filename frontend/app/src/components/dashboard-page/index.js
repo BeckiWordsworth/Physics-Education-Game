@@ -11,7 +11,8 @@ const DashboardPage = ({ totalScore, crownData }) => {
     { id: "2", title: "Astronomy", level: "3", icon: "/hearing.png" },
   ]);
   const [user, setUser] = useState(null);
-  const [recentActivityGraphData, setRecentActivityGraphData] = useState(null);
+  const [recentActivityGraphData, setRecentActivityGraphData] = useState();
+  const [timeResults, setTimeResults] = useState();
 
   useEffect(() => {
     // fetchData();
@@ -42,19 +43,17 @@ const DashboardPage = ({ totalScore, crownData }) => {
       })
       .then((json) => {
         console.log(json);
-        this.setState(
-          {
-            timeResults: json,
-          },
-          this.timeResults
-        );
+
+        setTimeResults(json);
+
+        timeResult();
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  let timeResults = () => {
+  let timeResult = () => {
     let graphData = [
       {
         id: "recent_activity",
