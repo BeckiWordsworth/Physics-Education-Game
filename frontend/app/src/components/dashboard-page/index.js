@@ -6,13 +6,16 @@ import moment from "moment";
 import styled from "styled-components";
 
 const DashboardPage = ({ totalScore, crownData }) => {
-  const [topics, setTopics] = useState([]);
+  const [topics, setTopics] = useState([
+    { id: "1", title: "Astronomy", level: "2", icon: "/globe.png" },
+    { id: "2", title: "Astronomy", level: "3", icon: "/hearing.png" },
+  ]);
   const [user, setUser] = useState(null);
   const [recentActivityGraphData, setRecentActivityGraphData] = useState(null);
 
   useEffect(() => {
-    fetchData();
-    fetchTimeData();
+    // fetchData();
+    // fetchTimeData();
   }, []);
 
   let fetchData = () => {
@@ -89,7 +92,6 @@ const DashboardPage = ({ totalScore, crownData }) => {
 
   return (
     <D.DashboardContainer>
-      <p>hello world</p>
       <D.DashboardMain>
         <div className="topic-list">
           <h2>Physics Topics</h2>
@@ -103,7 +105,7 @@ const DashboardPage = ({ totalScore, crownData }) => {
           <a href="/stats">
             <img src="/crown.png" alt="Logo" />
           </a>
-          <h2>You are on {this.props.crownData} crowns</h2>
+          <h2>You are on {crownData} crowns</h2>
         </div>
 
         <D.DashboardSidebarGraph>
