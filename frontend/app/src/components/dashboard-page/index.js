@@ -9,6 +9,10 @@ const DashboardPage = ({ totalScore, crownData }) => {
   const [topics, setTopics] = useState([
     { id: "1", title: "Astronomy", level: "2", icon: "/globe.png" },
     { id: "2", title: "Astronomy", level: "3", icon: "/hearing.png" },
+    { id: "3", title: "Astronomy", level: "4", icon: "/weather.png" },
+    { id: "4", title: "Mechanics", level: "1", icon: "/waves.png" },
+    { id: "5", title: "Mechanics", level: "2", icon: "/glass.png" },
+    { id: "6", title: "BioPhysics", level: "1", icon: "/idea.png" },
   ]);
   const [user, setUser] = useState(null);
   const [recentActivityGraphData, setRecentActivityGraphData] = useState();

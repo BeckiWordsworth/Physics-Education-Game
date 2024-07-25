@@ -1,19 +1,39 @@
 import React from "react";
-// import "./style.scss"
+import styled from "styled-components";
 import DuoPhysicsClient from "../../model/duophysics-client.js";
 
 class TopicList extends React.Component {
   render() {
     return (
-      <div className="topic-item">
+      <T.TopicItem>
         <a href={"/topic/" + this.props.id}>
           <img src={`${DuoPhysicsClient.ServerUrl}/topic_icons/${this.props.icon}`} alt="Icon" />
           <br />
           {this.props.title}
         </a>
-      </div>
+      </T.TopicItem>
     );
   }
 }
 
 export default TopicList;
+
+const T = {
+  TopicItem: styled.div`
+    padding: 10px;
+    text-align: center;
+    display: grid;
+
+    a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      padding: 8px;
+    }
+
+    a:hover {
+      background-color: #ddd;
+      border-radius: 8px;
+    }
+  `,
+};
