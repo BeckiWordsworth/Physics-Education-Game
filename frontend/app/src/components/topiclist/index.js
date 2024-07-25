@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import DuoPhysicsClient from "../../model/duophysics-client.js";
 
-const TopicList = () => {
+const TopicList = ({ id, title, icon }) => {
   return (
     <T.TopicItem>
-      <a href={"/topic/" + this.props.id}>
-        <img src={`${DuoPhysicsClient.ServerUrl}/topic_icons/${this.props.icon}`} alt="Icon" />
+      <a href={"/topic/" + id}>
+        <img src={`${DuoPhysicsClient.ServerUrl}/topic_icons/${icon}`} alt="Icon" />
         <br />
-        {this.props.title}
+        {title}
       </a>
     </T.TopicItem>
   );
