@@ -2,29 +2,21 @@ import React, { useEffect, useState } from "react";
 // import "./style.scss";
 import styled from "styled-components";
 
-class Answer extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      answer: null,
-    };
-  }
+const Answer = ({ answer, index, onAnswerSelected }) => {
+  // const [answer, setAnswer] = useState(null);
 
   onClick = () => {
-    this.props.onAnswerSelected(this.props.index);
+    onAnswerSelected(index);
   };
 
-  render() {
-    return (
-      <D.Answer>
-        <button id={this.props.index} onClick={this.onClick}>
-          {this.props.answer}
-        </button>
-      </D.Answer>
-    );
-  }
-}
+  return (
+    <D.Answer>
+      <button id={index} onClick={this.onClick}>
+        {answer}
+      </button>
+    </D.Answer>
+  );
+};
 
 export default Answer;
 
