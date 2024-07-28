@@ -32,3 +32,27 @@ const userSchema = mongoose.Schema(
 );
 
 module.exports = mongoose.model("User", userSchema);
+
+///user model and login setup
+
+// const User = mongoose.model("User", {
+//   username: {
+//     type: String,
+//     unique: true,
+//     required: true,
+//   },
+//   email: {
+//     type: String,
+//     unique: true,
+//     required: true,
+//   },
+//   password: {
+//     type: String,
+//     required: true,
+//     minlength: 8,
+//   },
+//   accessToken: {
+//     type: String,
+//     default: () => uuid(),
+//   },
+// });

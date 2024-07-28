@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt-nodejs");
 const uuid = require("uuid-v4");
 const moment = require("moment");
+const User = require("./models/userModel");
 
 // Load config from .env file even using nodemon
 require("dotenv").config();
@@ -53,27 +54,27 @@ function checkAuth(req, res, validFunc) {
 
 ///user model and login setup
 
-const User = mongoose.model("User", {
-  username: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 8,
-  },
-  accessToken: {
-    type: String,
-    default: () => uuid(),
-  },
-});
+// const User = mongoose.model("User", {
+//   username: {
+//     type: String,
+//     unique: true,
+//     required: true,
+//   },
+//   email: {
+//     type: String,
+//     unique: true,
+//     required: true,
+//   },
+//   password: {
+//     type: String,
+//     required: true,
+//     minlength: 8,
+//   },
+//   accessToken: {
+//     type: String,
+//     default: () => uuid(),
+//   },
+// });
 
 // endpoint to get info from db (if user is authenticaed)
 // app.post("/users/:id/admin", (req, res) => {
