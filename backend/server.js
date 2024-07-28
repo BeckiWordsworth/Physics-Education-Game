@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt-nodejs");
 const uuid = require("uuid-v4");
 const moment = require("moment");
 const User = require("./models/userModel");
+const Topic = require("./models/topicModel");
 
 // Load config from .env file even using nodemon
 require("dotenv").config();
@@ -82,16 +83,16 @@ function checkAuth(req, res, validFunc) {
 
 //Tests endpoints
 
-const Topic = mongoose.model("Topic", {
-  title: {
-    type: String,
-    required: true,
-  },
-  level: {
-    type: Number,
-    required: true,
-  },
-});
+// const Topic = mongoose.model("Topic", {
+//   title: {
+//     type: String,
+//     required: true,
+//   },
+//   level: {
+//     type: Number,
+//     required: true,
+//   },
+// });
 
 Topic.createCollection();
 
