@@ -18,24 +18,23 @@ const DashboardPage = ({ totalScore, crownData }) => {
   const [recentActivityGraphData, setRecentActivityGraphData] = useState();
   const [timeResults, setTimeResults] = useState();
 
-  useEffect(() => {
-    // fetchData();
-    // fetchTimeData();
+  useEffect(async () => {
+    try {
+      const result = await fetchTopics();
+      setTopics(result);
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
-  let fetchData = () => {
-    fetch(`${DuoPhysicsClient.ServerUrl}/topics`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((json) => {
-        console.log(json);
+  let fetchTopics = async () => {
+    const response = await fetch(`${DuoPhysicsClient.ServerUrl}/topics`);
 
-        topics(json);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (!response.ok) {
+      throw new Error(`Fetch Error: ${response.status}`);
+    }
+
+    return await response.json();
   };
 
   let fetchTimeData = () => {
