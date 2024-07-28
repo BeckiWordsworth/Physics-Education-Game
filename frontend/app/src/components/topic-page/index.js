@@ -228,9 +228,9 @@ class TopicPage extends React.Component {
           <div>
             <img className="face" src={image} alt="Logo" />
           </div>
-          <div className="next-question">
+          <T.NextQuestion>
             <button onClick={this.onSkipQuestion}>Next Question</button>
-          </div>
+          </T.NextQuestion>
 
           <h2>{text}</h2>
         </div>
@@ -250,27 +250,96 @@ class TopicPage extends React.Component {
             ))}
           </div>
 
-          <div className="extras">
+          <T.Extras>
             <button onClick={this.onSkipQuestion}>Skip Question</button>
-          </div>
+          </T.Extras>
         </div>
       );
     }
 
     return (
-      <div className="activity-container">
-        <div className="activity-progress">
+      <T.ActivityContainer>
+        <T.ActivityProgress>
           <ProgressBar progress={this.state.progress} />
-        </div>
+        </T.ActivityProgress>
 
         <div className="question-text">
           <Question question={question} />
         </div>
 
         {content}
-      </div>
+      </T.ActivityContainer>
     );
   }
 }
 
 export default TopicPage;
+
+const T = {
+  ActivityContainer: styled.div`
+    button {
+      padding: 10px;
+      background: none;
+      border: solid 2px #bbb;
+      border-radius: 20px;
+      color: #666;
+      font-size: 10pt;
+      font-family: "Montserrat", sans-serif;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #ccc;
+      color: #333;
+    }
+  `,
+
+  ActivityProgress: styled.div`
+    padding-top: 10px;
+    padding-bottom: 10px;
+  `,
+
+  Extras: styled.div`
+    margin-top: 20px;
+  `,
+
+  Result: styled.div`
+    padding: 40px;
+    padding-left: 10%;
+    padding-right: 10%;
+    color: black;
+    font-size: 16pt;
+
+    h2 {
+      padding: 0;
+      margin: 0;
+    }
+  `,
+
+  Face: styled.div`
+    height: 50px;
+    float: left;
+    padding-right: 10px;
+    padding-bottom: 10px;
+  `,
+  CorrectAnswer: styled.div`
+    background-color: #81d988;
+  `,
+  WrongAnswer: styled.div`
+    background-color: #e76345;
+  `,
+  NextQuestion: styled.div`
+    float: right;
+    padding-top: 2px;
+
+    button {
+      background-color: white;
+      color: #111;
+      border-color: #555;
+    }
+
+    button:hover {
+      background-color: #ddd;
+    }
+  `,
+};
