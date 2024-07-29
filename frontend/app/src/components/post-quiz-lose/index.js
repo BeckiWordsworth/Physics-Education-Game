@@ -1,21 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
-class PostQuizLosePage extends React.Component {
-  render() {
-    return (
-      <L.LoserContainer>
-        <h1> Game over! PLease try again!</h1>
+const PostQuizLosePage = () => {
+  return (
+    <L.LoserContainer>
+      <h1> Game over! PLease try again!</h1>
 
-        <img src={"./GameOver.png"} alt="loser" />
+      <img src={"./GameOver.png"} alt="loser" />
 
-        <a href={"/dashboard"}>
-          <button> Continue </button>
-        </a>
-      </L.LoserContainer>
-    );
-  }
-}
+      <a href={"/dashboard"}>
+        <button> Continue </button>
+      </a>
+    </L.LoserContainer>
+  );
+};
 
 export default PostQuizLosePage;
 
