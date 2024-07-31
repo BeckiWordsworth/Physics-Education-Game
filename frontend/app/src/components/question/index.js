@@ -1,6 +1,4 @@
 import React from "react";
-import Header from "../header";
-import Answer from "../answer";
 import styled from "styled-components";
 
 class Question extends React.Component {
