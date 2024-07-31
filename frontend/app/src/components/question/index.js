@@ -1,18 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-class Question extends React.Component {
-  render() {
-    return (
-      <Q.QuestionContainer>
-        <Q.Question>
-          <Q.QuestionText>{this.props.question.text}</Q.QuestionText>
-          <Q.QuestionId>{this.props.question._id}</Q.QuestionId>
-        </Q.Question>
-      </Q.QuestionContainer>
-    );
-  }
-}
+const Question = () => {
+  return (
+    <Q.QuestionContainer>
+      <Q.Question>
+        <Q.QuestionText>{this.props.question.text}</Q.QuestionText>
+        <Q.QuestionId>{this.props.question._id}</Q.QuestionId>
+      </Q.Question>
+    </Q.QuestionContainer>
+  );
+};
 
 export default Question;
 
