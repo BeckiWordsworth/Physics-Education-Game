@@ -6,7 +6,7 @@ import DuoPhysicsClient from "../../model/duophysics-client.js";
 import { Chart } from "react-charts";
 import styled from "styled-components";
 
-class Stats extends React.Component {
+const Stats = () => {
   state = {
     totalScore: 0,
     pointsData: 0,
@@ -34,7 +34,7 @@ class Stats extends React.Component {
       });
   };
 
-  render() {
+
     let userName = DuoPhysicsClient.getUserName();
 
     return (
@@ -91,7 +91,7 @@ class Stats extends React.Component {
       </S.StatsPage>
     );
   }
-}
+
 
 export default Stats;
 
