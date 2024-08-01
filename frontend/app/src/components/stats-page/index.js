@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../header";
 import Achievements from "../achievements";
 import LineChart from "../line-graph";
@@ -7,14 +7,20 @@ import { Chart } from "react-charts";
 import styled from "styled-components";
 
 const Stats = () => {
-  state = {
-    totalScore: 0,
-    pointsData: 0,
-  };
+  const [totalScore, setTotalScore] = useState(0);
+  const [pointsData, setPointsData] = useState(0);
 
-  componentDidMount() {
-    this.fetchResults();
-  }
+  useEffect(async () => {
+    try {
+      await fetchResults();
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  // componentDidMount() {
+  //   this.fetchResults();
+  // }
 
   fetchResults = () => {
     let userId = DuoPhysicsClient.getUserId();
@@ -34,64 +40,62 @@ const Stats = () => {
       });
   };
 
+  let userName = DuoPhysicsClient.getUserName();
 
-    let userName = DuoPhysicsClient.getUserName();
+  return (
+    <S.StatsPage>
+      <S.UserContainer>
+        <h1>Achievements</h1>
 
-    return (
-      <S.StatsPage>
-        <S.UserContainer>
-          <h1>Achievements</h1>
+        <S.UserContent>
+          <div>
+            <img src="./anon-user.jpg" alt="user" />
+          </div>
+          <div>
+            <p>Hello {userName}</p>
+            <p>Great job! You have earned {this.props.totalScore} points so far!</p>
+          </div>
+        </S.UserContent>
+      </S.UserContainer>
 
-          <S.UserContent>
-            <div>
-              <img src="./anon-user.jpg" alt="user" />
-            </div>
-            <div>
-              <p>Hello {userName}</p>
-              <p>Great job! You have earned {this.props.totalScore} points so far!</p>
-            </div>
-          </S.UserContent>
-        </S.UserContainer>
-
-        <Achievements
-          pointsData={this.state.totalScore}
-          pointsLimit={20}
-          source="badge-heart2"
-          headline="Champion!"
-          text="You conquered a course!"
-        />
-        <Achievements
-          pointsData={this.state.totalScore}
-          pointsLimit={50}
-          source="badge-star"
-          headline="Wildfire!"
-          text="You sustained your streak!"
-        />
-        <Achievements
-          pointsData={this.state.totalScore}
-          pointsLimit={70}
-          source="badge-medal"
-          headline="Overachiever"
-          text="You can't be stopped!"
-        />
-        <Achievements
-          pointsData={this.state.totalScore}
-          pointsLimit={100}
-          source="badge-diamond"
-          headline="Super player!"
-          text="You are pushing yourself to the max!"
-        />
-        <Achievements
-          pointsData={this.state.totalScore}
-          pointsLimit={150}
-          source="badge-diamond2"
-          headline="Overtime!"
-          text="You put in the time to reach your goals!"
-        />
-      </S.StatsPage>
-    );
-  }
-
+      <Achievements
+        pointsData={this.state.totalScore}
+        pointsLimit={20}
+        source="badge-heart2"
+        headline="Champion!"
+        text="You conquered a course!"
+      />
+      <Achievements
+        pointsData={this.state.totalScore}
+        pointsLimit={50}
+        source="badge-star"
+        headline="Wildfire!"
+        text="You sustained your streak!"
+      />
+      <Achievements
+        pointsData={this.state.totalScore}
+        pointsLimit={70}
+        source="badge-medal"
+        headline="Overachiever"
+        text="You can't be stopped!"
+      />
+      <Achievements
+        pointsData={this.state.totalScore}
+        pointsLimit={100}
+        source="badge-diamond"
+        headline="Super player!"
+        text="You are pushing yourself to the max!"
+      />
+      <Achievements
+        pointsData={this.state.totalScore}
+        pointsLimit={150}
+        source="badge-diamond2"
+        headline="Overtime!"
+        text="You put in the time to reach your goals!"
+      />
+    </S.StatsPage>
+  );
+};
 
 export default Stats;
 
