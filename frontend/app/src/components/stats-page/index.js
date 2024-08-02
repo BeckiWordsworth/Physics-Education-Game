@@ -12,33 +12,42 @@ const Stats = () => {
 
   useEffect(async () => {
     try {
-      await fetchResults();
+      const result = await fetchResults();
+      setTotalScore(result);
     } catch (err) {
       console.log(err);
     }
   }, []);
 
-  // componentDidMount() {
-  //   this.fetchResults();
-  // }
-
-  fetchResults = () => {
+  let fetchResults = async () => {
     let userId = DuoPhysicsClient.getUserId();
 
-    fetch(`${DuoPhysicsClient.ServerUrl}/scores/${userId}`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((json) => {
-        console.log(json);
-        this.setState({
-          totalScore: json[0].total,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const response = await fetch(`${DuoPhysicsClient.ServerUrl}/scores/${userId}`);
+
+    if (!response.ok) {
+      throw new Error(`Fetch Error: ${response.status}`);
+    }
+
+    return await response.json();
   };
+
+  // let fetchResults = () => {
+  //   let userId = DuoPhysicsClient.getUserId();
+
+  //   fetch(`${DuoPhysicsClient.ServerUrl}/scores/${userId}`)
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((json) => {
+  //       console.log(json);
+  //       this.setState({
+  //         totalScore: json[0].total,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   let userName = DuoPhysicsClient.getUserName();
 
