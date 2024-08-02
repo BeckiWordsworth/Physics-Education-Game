@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "../header";
 import Achievements from "../achievements";
 import LineChart from "../line-graph";
 import DuoPhysicsClient from "../../model/duophysics-client.js";
