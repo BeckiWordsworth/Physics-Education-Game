@@ -2,9 +2,8 @@ import React from 'react'
 import { ResponsiveLine } from '@nivo/line'
 
 
-class BarGraph extends React.Component {
+const BarGraph = () => {
 
-  render() {
     console.log(this.props.graphData)
 
     if (!this.props.graphData || this.props.graphData.length == 0) {
@@ -120,6 +119,6 @@ class BarGraph extends React.Component {
     />
     )
   }
-}
+
 
 export default BarGraph
