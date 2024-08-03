@@ -7,6 +7,7 @@ const uuid = require("uuid-v4");
 const moment = require("moment");
 const User = require("./models/userModel");
 const Topic = require("./models/topicModel");
+const Result = require("./models/resultModel");
 
 // Load config from .env file even using nodemon
 require("dotenv").config();
@@ -98,24 +99,24 @@ Topic.createCollection();
 
 //Results endpoints
 
-const Result = mongoose.model("Result", {
-  user_id: {
-    type: String,
-    required: true,
-  },
-  datetime: {
-    type: Date,
-    required: true,
-  },
-  topic_id: {
-    type: String,
-    required: true,
-  },
-  score: {
-    type: Number,
-    required: true,
-  },
-});
+// const Result = mongoose.model("Result", {
+//   user_id: {
+//     type: String,
+//     required: true,
+//   },
+//   datetime: {
+//     type: Date,
+//     required: true,
+//   },
+//   topic_id: {
+//     type: String,
+//     required: true,
+//   },
+//   score: {
+//     type: Number,
+//     required: true,
+//   },
+// });
 
 Result.createCollection();
 
