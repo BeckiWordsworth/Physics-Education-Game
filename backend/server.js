@@ -8,6 +8,7 @@ const moment = require("moment");
 const User = require("./models/userModel");
 const Topic = require("./models/topicModel");
 const Result = require("./models/resultModel");
+const Question = require("./models/questionModel");
 
 // Load config from .env file even using nodemon
 require("dotenv").config();
@@ -122,28 +123,28 @@ Result.createCollection();
 
 //Results endpoints
 
-const Question = mongoose.model("Question", {
-  topic_id: {
-    type: String,
-    required: true,
-  },
-  difficulty: {
-    type: Number,
-    required: true,
-  },
-  text: {
-    type: String,
-    required: true,
-  },
-  answers: {
-    type: Array,
-    required: true,
-  },
-  correct_answer: {
-    type: Number,
-    required: true,
-  },
-});
+// const Question = mongoose.model("Question", {
+//   topic_id: {
+//     type: String,
+//     required: true,
+//   },
+//   difficulty: {
+//     type: Number,
+//     required: true,
+//   },
+//   text: {
+//     type: String,
+//     required: true,
+//   },
+//   answers: {
+//     type: Array,
+//     required: true,
+//   },
+//   correct_answer: {
+//     type: Number,
+//     required: true,
+//   },
+// });
 
 Question.createCollection();
 
