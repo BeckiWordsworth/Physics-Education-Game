@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const ProgressBar = () => {
-  state = {
-    active: false,
-  };
+const ProgressBar = ({ progress }) => {
+  const [active, setActive] = useState(false);
 
   let progressStyle = {
-    width: this.state.active ? "100%" : this.props.progress + "%",
+    width: active ? "100%" : progress + "%",
   };
 
   return (
