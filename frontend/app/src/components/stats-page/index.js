@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Achievements from "../achievements";
 import LineChart from "../line-graph";
 import DuoPhysicsClient from "../../model/duophysics-client.js";
-import { Chart } from "react-charts";
 import styled from "styled-components";
 
 const Stats = () => {
