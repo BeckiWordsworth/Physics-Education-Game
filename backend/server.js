@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const cors = require("cors");
 const express = require("express");
+const router = express.Router();
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt-nodejs");
 const uuid = require("uuid-v4");
@@ -9,6 +10,7 @@ const User = require("./models/userModel");
 const Topic = require("./models/topicModel");
 const Result = require("./models/resultModel");
 const Question = require("./models/questionModel");
+// const { getTopic } = require("./controllers/topicController");
 
 // Load config from .env file even using nodemon
 require("dotenv").config();
@@ -217,6 +219,8 @@ app.post("/results", (req, res) => {
 });
 
 //GET topics
+
+// router.route("/topics/").get(getTopic);
 
 app.get("/topics/", (req, res) => {
   Topic.find().then((topics) => {

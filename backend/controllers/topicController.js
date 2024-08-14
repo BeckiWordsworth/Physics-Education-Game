@@ -10,4 +10,4 @@ const getTopics = asyncHandler(async (req, res) => {
   res.status(200).json(topics);
 });
 
-//
+module.exports = { getTopics };
