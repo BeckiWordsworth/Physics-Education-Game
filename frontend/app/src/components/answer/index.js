@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import "./style.scss";
 import styled from "styled-components";
 
 const Answer = ({ answer, index, onAnswerSelected }) => {

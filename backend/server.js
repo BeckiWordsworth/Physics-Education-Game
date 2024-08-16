@@ -10,7 +10,7 @@ const User = require("./models/userModel");
 const Topic = require("./models/topicModel");
 const Result = require("./models/resultModel");
 const Question = require("./models/questionModel");
-// const { getTopic } = require("./controllers/topicController");
+const { getTopic } = require("./controllers/topicController");
 
 // Load config from .env file even using nodemon
 require("dotenv").config();
