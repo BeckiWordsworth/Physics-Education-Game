@@ -19,8 +19,8 @@ const App = () => {
   const [token, setToken] = useState("");
   const [newResult, setNewResult] = useState({});
   const [newResultAdded, setNewResultAdded] = useState(false);
-  const [totalScore, setTotalScore] = useState(0);
-  const [crownData, setCrownData] = useState(0);
+  const [totalScore, setTotalScore] = useState(9);
+  const [crownData, setCrownData] = useState(9);
 
   // componentDidMount() {
   //   this.fetchResults();
