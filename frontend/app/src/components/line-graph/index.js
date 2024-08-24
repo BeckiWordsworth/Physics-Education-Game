@@ -1,14 +1,14 @@
 import React from "react";
 import { ResponsiveLine } from "@nivo/line";
 
-const LineGraph = () => {
-  console.log(this.props.graphData);
+const LineGraph = ({ graphData }) => {
+  console.log(graphData);
 
-  if (!this.props.graphData || this.props.graphData.length == 0) {
+  if (!graphData || graphData.length == 0) {
     return <div></div>;
   }
 
-  let data = this.props.graphData;
+  let data = graphData;
 
   return (
     <ResponsiveLine

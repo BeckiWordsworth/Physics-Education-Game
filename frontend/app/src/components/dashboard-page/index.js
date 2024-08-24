@@ -5,7 +5,10 @@ import DuoPhysicsClient from "../../model/duophysics-client.js";
 import moment from "moment";
 import styled from "styled-components";
 
+const fakeData = require("../../fakedata.json");
+
 const DashboardPage = ({ totalScore, crownData }) => {
+  console.log(fakeData);
   const [topics, setTopics] = useState([
     { id: "1", title: "Astronomy", level: "2", icon: "/globe.png" },
     { id: "2", title: "Astronomy", level: "3", icon: "/hearing.png" },
@@ -15,7 +18,7 @@ const DashboardPage = ({ totalScore, crownData }) => {
     { id: "6", title: "BioPhysics", level: "1", icon: "/idea.png" },
   ]);
   const [user, setUser] = useState(null);
-  const [recentActivityGraphData, setRecentActivityGraphData] = useState();
+  const [recentActivityGraphData, setRecentActivityGraphData] = useState(fakeData);
   const [timeResults, setTimeResults] = useState();
 
   useEffect(async () => {
@@ -89,7 +92,7 @@ const DashboardPage = ({ totalScore, crownData }) => {
       graphData[0].data.push(newEntry);
     }
 
-    setRecentActivityGraphData(graphData);
+    setRecentActivityGraphData();
   };
 
   return (
