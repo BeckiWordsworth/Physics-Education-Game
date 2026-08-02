@@ -8,18 +8,19 @@ const SignUpForm = () => {
   const [newUserAdded, setNewUserAdded] = useState(false);
 
   const handleFormUpdate = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+    const { name, value } = event.target;
+    if (name === "username") setUsername(value);
+    else if (name === "email") setEmail(value);
+    else if (name === "password") setPassword(value);
   };
 
   const submitForm = (event) => {
     event.preventDefault();
 
     const userDetails = {
-      username: this.state.username,
-      email: this.state.email,
-      password: this.state.password,
+      username,
+      email,
+      password,
     };
 
     fetch("http://localhost:8080/users", {
@@ -33,9 +34,7 @@ const SignUpForm = () => {
       .then((result) => {
         if (result.created === true) {
           console.log("Success:", JSON.stringify(result));
-          this.setState({
-            newUserAdded: true,
-          });
+          setNewUserAdded(true);
         } else {
           console.log("Failure:", JSON.stringify(result));
         }
@@ -60,7 +59,7 @@ const SignUpForm = () => {
         <br />
         <button type="submit">Submit</button>
       </U.SignUpForm>
-      {this.state.newUserAdded ? <p>New user added. Welcome! Please check your email.</p> : <p />}
+      {newUserAdded ? <p>New user added. Welcome! Please check your email.</p> : <p />}
     </div>
   );
 };
